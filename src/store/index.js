@@ -1,7 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex)
+
+// Set up persistent storage
+const vuexlocalstorage = new VuexPersist({
+  key: 'railway-simulator',
+  storage: window.localStorage
+})
 
 const state = {
   money: 100,
@@ -48,5 +55,6 @@ export default new Vuex.Store({
   state,
   getters,
   mutations,
-  actions
+  actions,
+  plugins: [vuexlocalstorage.plugin]
 })
