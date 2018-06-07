@@ -1,15 +1,28 @@
 <template>
-  <div id="market">
+  <div id="resources">
     <ul>
       <li>Timber - $2</li>
       <li>Steel - $5</li>
     </ul>
+    <p>Workers: {{workers}} - Money: {{money}}</p>
+    <button v-on:click="addworker()">Buy worker</button>
   </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+
 export default {
-  name: 'Market'
+  name: 'Resources',
+  computed: mapGetters({
+    money: 'money',
+    workers: 'workers'
+  }),
+  methods: {
+    ...mapActions([
+      'addworker'
+    ])
+  }
 }
 </script>
 

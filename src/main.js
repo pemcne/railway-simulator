@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -9,5 +10,20 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store: store,
+  data: {
+    counter: 0
+  },
+  mounted () {
+    this.$options.interval = setInterval(this.tick, 1000)
+  },
+  beforeDestroy () {
+    clearInterval(this.$options.interval)
+  },
+  methods: {
+    tick () {
+      this.$store.dispatch('tick')
+    }
+  }
 })
