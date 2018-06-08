@@ -12,7 +12,8 @@ const vuexlocalstorage = new VuexPersist({
 
 const state = {
   money: 100,
-  workers: 0
+  workers: 0,
+  timestamp: new Date() / 1000
 }
 
 const getters = {
@@ -30,8 +31,13 @@ const actions = {
     commit('ADD_WORKER')
   },
   tick ({commit}) {
-    let income = state.workers * 2
-    console.log('income', income)
+    const currentDate = new Date() / 1000
+    let rate = currentDate - state.timestamp
+    if (rate < 2) {
+      rate = 1
+    }
+    state.timestamp = currentDate
+    let income = state.workers * 2 * rate
     commit('ADD_AMOUNT', {
       amount: income
     })

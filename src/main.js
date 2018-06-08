@@ -16,6 +16,9 @@ new Vue({
     counter: 0
   },
   mounted () {
+    // Call tick first for inital state
+    this.tick()
+    // Now start the clock
     this.$options.interval = setInterval(this.tick, 1000)
   },
   beforeDestroy () {
