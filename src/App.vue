@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Market/>
+    <Resources/>
   </div>
 </template>
 
 <script>
 import Market from './components/Market'
+import Resources from './components/Resources'
 
 export default {
   name: 'App',
   components: {
-    Market
+    Market,
+    Resources
   }
 }
 </script>

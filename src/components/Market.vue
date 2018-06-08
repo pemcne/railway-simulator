@@ -1,27 +1,38 @@
 <template>
-  <div id="resources">
-    <ul>
-      <li>Timber - $2</li>
-      <li>Steel - $5</li>
-    </ul>
-    <p>Workers: {{workers}} - Money: {{money}}</p>
-    <button v-on:click="addworker()">Buy worker</button>
+  <div id="market">
+    <button v-on:click="buyWorker()">Buy worker - ${{workerCost}}</button>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
-  name: 'Resources',
-  computed: mapGetters({
-    money: 'money',
-    workers: 'workers'
-  }),
+  name: 'Market',
+  data () {
+    return {
+      workerBaseCost: 10,
+      workerBaseRate: 0.2
+    }
+  },
+  computed: {
+    ...mapGetters({
+      money: 'money',
+      workers: 'workers'
+    }),
+    workerCost () {
+      const workerRate = Math.floor(this.workerBaseCost * this.workerBaseRate * this.workers)
+      return this.workerBaseCost + workerRate
+    }
+  },
   methods: {
-    ...mapActions([
-      'addworker'
-    ])
+    buyWorker () {
+      this.$store.dispatch('buy', {
+        item: 'worker',
+        amount: 1,
+        cost: this.workerCost
+      })
+    }
   }
 }
 </script>
