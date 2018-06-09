@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
+import EventBus from './EventBus.js'
 
 Vue.config.productionTip = false
 
@@ -26,7 +27,8 @@ new Vue({
   },
   methods: {
     tick () {
-      this.$store.dispatch('tick')
+      const timestamp = new Date() / 1000
+      EventBus.$emit('tick', timestamp)
     }
   }
 })
