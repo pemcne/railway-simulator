@@ -20,29 +20,20 @@ const state = {
 
 const getters = {
   money: state => state.money,
-  workers: state => state.inventory.worker
+  workers: state => state.inventory.worker,
+  timestamp: state => state.timestamp
 }
 
 const actions = {
   buy ({commit}, {item, amount, cost}) {
-    console.log(item, amount, cost)
     commit('BUY', {
       item: item,
       amount,
       cost
     })
   },
-  tick ({commit}) {
-    const currentDate = new Date() / 1000
-    let rate = currentDate - state.timestamp
-    if (rate < 2) {
-      rate = 1
-    }
-    state.timestamp = currentDate
-    let income = state.inventory.worker * 2 * rate
-    commit('ADD_AMOUNT', {
-      amount: income
-    })
+  income ({commit}, {amount}) {
+    commit('INCOME', {amount})
   }
 }
 
@@ -55,15 +46,8 @@ const mutations = {
     }
     state.money -= cost
   },
-  ADD_AMOUNT (state, {amount}) {
-    state.money = state.money + amount
-  },
-  SUBTRACT_AMOUNT (state, {amount}) {
-    state.money = state.money - amount
-  },
-  ADD_WORKER (state) {
-    state.money -= 10
-    state.workers += 1
+  INCOME (state, {amount}) {
+    state.money += amount
   }
 }
 
