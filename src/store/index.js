@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VuexPersist from 'vuex-persist'
+// import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex)
 
@@ -31,9 +31,6 @@ const actions = {
       amount,
       cost
     })
-  },
-  addworker ({commit}) {
-    commit('ADD_WORKER')
   },
   tick ({commit}) {
     const currentDate = new Date() / 1000
