@@ -6,6 +6,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import {buyItem} from '@/Engine.js'
 
 export default {
   name: 'Market',
@@ -27,11 +28,12 @@ export default {
   },
   methods: {
     buyWorker () {
-      this.$store.dispatch('buy', {
-        item: 'worker',
-        amount: 1,
-        cost: this.workerCost
-      })
+      buyItem(this.$store, 'worker', 1, this.workerCost)
+      // this.$store.dispatch('buy', {
+      //   item: 'worker',
+      //   amount: 1,
+      //   cost: this.workerCost
+      // })
     }
   }
 }
