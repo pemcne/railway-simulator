@@ -11,6 +11,7 @@ import {buyItem} from '@/Engine.js'
 export default {
   name: 'Market',
   data () {
+    // Initial state for the component
     return {
       workerBaseCost: 10,
       workerBaseRate: 0.2
@@ -21,6 +22,7 @@ export default {
       money: 'money',
       workers: 'workers'
     }),
+    // Dynamically calculate worker cost based on data and worker count
     workerCost () {
       const workerRate = Math.floor(this.workerBaseCost * this.workerBaseRate * this.workers)
       return this.workerBaseCost + workerRate
@@ -28,12 +30,8 @@ export default {
   },
   methods: {
     buyWorker () {
+      // Call the external engine method for buyItem
       buyItem(this.$store, 'worker', 1, this.workerCost)
-      // this.$store.dispatch('buy', {
-      //   item: 'worker',
-      //   amount: 1,
-      //   cost: this.workerCost
-      // })
     }
   }
 }

@@ -26,6 +26,8 @@ new Vue({
     clearInterval(this.$options.interval)
   },
   methods: {
+    // This fires an event on the EventBus every second
+    // Primary driver for the game, should probably move to Engine.js
     tick () {
       const timestamp = new Date() / 1000
       EventBus.$emit('tick', timestamp)

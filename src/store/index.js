@@ -5,11 +5,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 // Set up persistent storage
+// Leave this commented out during development
 // const vuexlocalstorage = new VuexPersist({
 //   key: 'railway-simulator',
 //   storage: window.localStorage
 // })
 
+// The initial state of the application
 const state = {
   money: 100,
   inventory: {
@@ -18,12 +20,16 @@ const state = {
   timestamp: new Date() / 1000
 }
 
+// Define getters here
+// Use this.$store.getters.<foo> to access
 const getters = {
   money: state => state.money,
   workers: state => state.inventory.worker,
   timestamp: state => state.timestamp
 }
 
+// Define actions here
+// Use this.$store.dispatch('foo', {}) to access
 const actions = {
   buy ({commit}, {item, amount, cost}) {
     commit('BUY', {
@@ -37,6 +43,9 @@ const actions = {
   }
 }
 
+// Define the mutations here
+// Ideally, this is what the actions will call to actually change the state
+// Use this.$store.commit('FOO', {}) to access
 const mutations = {
   BUY (state, {item, amount, cost}) {
     if (item in state.inventory) {
@@ -51,6 +60,7 @@ const mutations = {
   }
 }
 
+// Export store by default
 export default new Vuex.Store({
   state,
   getters,

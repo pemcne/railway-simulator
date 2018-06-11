@@ -21,28 +21,35 @@
 import {mapGetters} from 'vuex'
 import EventBus from '../EventBus.js'
 
+// Displays the inventory or resources
 export default {
   name: 'Resources',
   data () {
+    // Initial data
     return {
       workerIncome: 2
     }
   },
+  // Map the getters from the store
   computed: mapGetters({
     money: 'money',
     workers: 'workers'
   }),
   mounted () {
-    const self = this
     EventBus.$on('tick', (timestamp) => {
+      // Calculate worker income
       let income = 0
-      income += self.workers * self.workerIncome
-      let rate = timestamp - self.$store.getters.timestamp
+      income += this.workers * this.workerIncome
+
+      // Placeholder to account for drift when persistent storage is online
+      let rate = timestamp - this.$store.getters.timestamp
       if (rate < 2) {
         // Only get half income while away
         income = income * (rate / 2)
       }
-      self.$store.dispatch('income', {
+
+      // Call the store action for income and pass the amount
+      this.$store.dispatch('income', {
         amount: income
       })
     })

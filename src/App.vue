@@ -9,6 +9,8 @@
 import Market from './components/Market'
 import Resources from './components/Resources'
 
+// Parent root element for the entire application
+// Does nothing but display the children
 export default {
   name: 'App',
   components: {
