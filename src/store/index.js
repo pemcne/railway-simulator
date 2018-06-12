@@ -17,6 +17,14 @@ const state = {
   inventory: {
     worker: 0
   },
+  resources: [{
+    shortCode: 'worker',
+    name: 'Worker',
+    description: 'Basic worker',
+    income: 2,
+    cost: 10,
+    rate: 0.2
+  }],
   timestamp: new Date() / 1000
 }
 
@@ -25,7 +33,15 @@ const state = {
 const getters = {
   money: state => state.money,
   workers: state => state.inventory.worker,
-  timestamp: state => state.timestamp
+  timestamp: state => state.timestamp,
+  inventory: state => state.inventory,
+  resource (state) {
+    // This takes a shortCode parameter and returns the item in the resources
+    // list that corresponds with the shortCode
+    return shortCode => state.resources.filter(resource => {
+      return resource.shortCode === shortCode
+    })[0]
+  }
 }
 
 // Define actions here
