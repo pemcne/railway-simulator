@@ -27,12 +27,6 @@ export default {
   components: {
     ResourceItem
   },
-  data () {
-    // Initial data
-    return {
-      workerIncome: 2
-    }
-  },
   // Map the getters from the store
   computed: {
     ...mapGetters({
@@ -60,11 +54,11 @@ export default {
         income += amount * resource.income
       }
       // Placeholder to account for drift when persistent storage is online
-      let rate = timestamp - this.$store.getters.timestamp
-      if (rate < 2) {
-        // Only get half income while away
-        income = income * (rate / 2)
-      }
+      // let rate = timestamp - this.$store.getters.timestamp
+      // if (rate < 2) {
+      //   // Only get half income while away
+      //   income = income * (rate / 2)
+      // }
 
       console.log('income', income)
       // Call the store action for income and pass the amount
