@@ -23,7 +23,7 @@ import EventBus from '../EventBus.js'
 
 // Displays the inventory or resources
 export default {
-  name: 'Resources',
+  name: 'ResourceList',
   components: {
     ResourceItem
   },

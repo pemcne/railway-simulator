@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <Market/>
-    <Resources/>
+    <ResourceList/>
   </div>
 </template>
 
 <script>
 import Market from './components/Market'
-import Resources from './components/Resources'
+import ResourceList from './components/ResourceList'
 
 // Parent root element for the entire application
 // Does nothing but display the children
@@ -15,7 +15,7 @@ export default {
   name: 'App',
   components: {
     Market,
-    Resources
+    ResourceList
   }
 }
 </script>
