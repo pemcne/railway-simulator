@@ -25,7 +25,7 @@ const state = {
     cost: 10,
     rate: 0.2
   }],
-  timestamp: new Date() / 1000
+  timestamp: Math.floor(new Date() / 1000)
 }
 
 // Define getters here
@@ -56,6 +56,9 @@ const actions = {
   },
   income ({commit}, {amount}) {
     commit('INCOME', {amount})
+  },
+  setTime ({commit}, {timestamp}) {
+    commit('SETTIME', {timestamp})
   }
 }
 
@@ -73,6 +76,9 @@ const mutations = {
   },
   INCOME (state, {amount}) {
     state.money += amount
+  },
+  SETTIME (state, {timestamp}) {
+    state.timestamp = timestamp
   }
 }
 
