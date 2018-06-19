@@ -3,7 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
-import EventBus from './EventBus.js'
+// import EventBus from './EventBus.js'
+import Engine from '@/Engine.js'
 
 Vue.config.productionTip = false
 
@@ -17,20 +18,12 @@ new Vue({
     counter: 0
   },
   mounted () {
-    // Call tick first for inital state
-    this.tick()
-    // Now start the clock
-    this.$options.interval = setInterval(this.tick, 1000)
+    Engine.store = this.$store
+    Engine.start()
   },
   beforeDestroy () {
-    clearInterval(this.$options.interval)
+    Engine.stop()
   },
   methods: {
-    // This fires an event on the EventBus every second
-    // Primary driver for the game, should probably move to Engine.js
-    tick () {
-      const timestamp = new Date() / 1000
-      EventBus.$emit('tick', timestamp)
-    }
   }
 })

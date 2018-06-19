@@ -1,12 +1,12 @@
 <template>
   <div id="market">
-    <button v-on:click="buyWorker()">Buy worker - ${{workerCost}}</button>
+    <button v-on:click="buyWorker" shortCode="worker">Buy worker - ${{workerCost}}</button>
   </div>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
-import {buyItem} from '@/Engine.js'
+import Engine from '@/Engine.js'
 
 export default {
   name: 'Market',
@@ -29,9 +29,9 @@ export default {
     }
   },
   methods: {
-    buyWorker () {
+    buyWorker (event) {
       // Call the external engine method for buyItem
-      buyItem(this.$store, 'worker', 1, this.workerCost)
+      Engine.buyItem('worker', 1, this.workerCost)
     }
   }
 }
