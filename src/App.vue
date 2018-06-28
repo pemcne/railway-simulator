@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <Market v-for="(inventory, name) in inventories" v-bind:inventory="inventory" v-bind:name="name" :key="name"/>
+    <Market v-for="for market in markets" :key="market"/>
   </div>
 </template>
 
 <script>
-import Inventory from './components/Inventory'
+import Market from './components/Market'
 
 // Parent root element for the entire application
 // Does nothing but display the children
 export default {
   name: 'App',
   components: {
-    Inventory
+    Market
   },
   computed: {
     markets ()  {
-      return this.$store.state.markets
+      return Object.keys(this.$store.state.markets)
     }
   }
 }
