@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Market v-for="for market in markets" :key="market"/>
+    <Market v-for="market in markets" :key="market" v-bind:name="market"/>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
     Market
   },
   computed: {
-    markets ()  {
+    markets () {
       return Object.keys(this.$store.state.markets)
     }
   }

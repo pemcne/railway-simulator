@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="invheader">{{name}}</p>
+    <p class="invheader">Inventory - {{name}}</p>
     <table>
       <tr>
         <th>Item</th>
