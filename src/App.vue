@@ -1,18 +1,21 @@
 <template>
   <div id="app">
     <Market v-for="market in markets" :key="market" v-bind:name="market"/>
+    <Player />
   </div>
 </template>
 
 <script>
 import Market from './components/Market'
+import Player from './components/Player'
 
 // Parent root element for the entire application
 // Does nothing but display the children
 export default {
   name: 'App',
   components: {
-    Market
+    Market,
+    Player
   },
   computed: {
     markets () {

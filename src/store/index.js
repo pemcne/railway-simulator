@@ -30,6 +30,12 @@ const state = {
         'wood': 0,
         'metal': 2
       }
+    },
+    'player': {
+      items: ['wood'],
+      quantities: {
+        'wood': 1
+      }
     }
   },
   markets: {
@@ -39,6 +45,9 @@ const state = {
     'market2': {
       inventory: 'def'
     }
+  },
+  player: {
+    inventory: 'player'
   }
 }
 

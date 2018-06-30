@@ -1,17 +1,17 @@
 <template>
   <div id="market">
     <p>Market - {{name}}</p>
-    <Inventory v-bind:name="inventory" />
+    <MarketInventory v-bind:name="inventory" />
   </div>
 </template>
 
 <script>
-import Inventory from './Inventory'
+import MarketInventory from './MarketInventory'
 export default {
   name: 'Market',
   props: ['name'],
   components: {
-    Inventory
+    MarketInventory
   },
   computed: {
     inventory () {
