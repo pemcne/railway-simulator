@@ -54,9 +54,32 @@ const state = {
 // Export store by default
 export default new Vuex.Store({
   state,
+  actions: {
+    buyItem ({commit}, toinv, frominv, item, quantity) {
+      commit('REMOVE_ITEM', {
+        inv: frominv,
+        item,
+        quantity
+      })
+      commit('ADD_ITEM', {
+        inv: toinv,
+        item,
+        quantity
+      })
+    }
+  },
   mutations: {
-    CHANGE (state) {
-      state.inventories['abc'].quantities['wood'] += 1
+    ADD_ITEM (state, {inv, item, quantity}) {
+      const inventory = state.inventories[inv]
+      inventory.quantities[item] += quantity
+    },
+    REMOVE_ITEM (state, {inv, item, quantity}) {
+      const inventory = state.inventories[inv]
+      if (inventory.quantities[item] < quantity) {
+        inventory.quantities[item] -= quantity
+      } else {
+        throw new Error(`${inv} has less than ${quantity} of ${item}`)
+      }
     }
   }
 })
