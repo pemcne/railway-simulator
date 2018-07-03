@@ -10,7 +10,12 @@
         <td>{{item.id}}</td>
         <td>{{item.quantity}}</td>
         <td>
-          <button @click="buy" :item="item.id">Buy</button>
+          <button
+            @click="buy"
+            :item="item.id"
+            :disabled="inventory.quantities[item.id] <= 0">
+            Buy
+          </button>
           <button @click="sell" :item="item.id">Sell</button>
         </td>
       </tr>
@@ -28,7 +33,12 @@ export default {
     ...mapActions(['buyItem']),
     buy (event) {
       const item = event.target.attributes.getNamedItem('item').value
-      console.log('Buying', item)
+      this.buyItem({
+        toinv: 'player',
+        frominv: this.name,
+        item,
+        quantity: 1
+      })
     },
     sell (event) {
       const item = event.target.attributes.getNamedItem('item').value

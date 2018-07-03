@@ -55,7 +55,8 @@ const state = {
 export default new Vuex.Store({
   state,
   actions: {
-    buyItem ({commit}, toinv, frominv, item, quantity) {
+    buyItem ({commit}, {toinv, frominv, item, quantity}) {
+      console.log('Transferring from', frominv)
       commit('REMOVE_ITEM', {
         inv: frominv,
         item,
@@ -71,11 +72,21 @@ export default new Vuex.Store({
   mutations: {
     ADD_ITEM (state, {inv, item, quantity}) {
       const inventory = state.inventories[inv]
-      inventory.quantities[item] += quantity
+      // Make copy of an object
+      let quantities = Object.assign({}, inventory.quantities)
+      if (inventory.items.includes(item)) {
+        quantities[item] += quantity
+      } else {
+        inventory.items.push(item)
+        quantities[item] = quantity
+      }
+      // Set the copy back to the state
+      inventory.quantities = quantities
     },
     REMOVE_ITEM (state, {inv, item, quantity}) {
+      console.log(inv, item, quantity)
       const inventory = state.inventories[inv]
-      if (inventory.quantities[item] < quantity) {
+      if (inventory.quantities[item] - quantity >= 0) {
         inventory.quantities[item] -= quantity
       } else {
         throw new Error(`${inv} has less than ${quantity} of ${item}`)
