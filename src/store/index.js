@@ -55,8 +55,7 @@ const state = {
 export default new Vuex.Store({
   state,
   actions: {
-    buyItem ({commit}, {toinv, frominv, item, quantity}) {
-      console.log('Transferring from', frominv)
+    transferItem ({commit}, {toinv, frominv, item, quantity}) {
       commit('REMOVE_ITEM', {
         inv: frominv,
         item,
