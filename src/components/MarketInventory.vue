@@ -30,10 +30,10 @@ export default {
   name: 'MarketInventory',
   extends: Inventory,
   methods: {
-    ...mapActions(['transferItem']),
+    ...mapActions(['buyItem']),
     buy (event) {
       const item = event.target.attributes.getNamedItem('item').value
-      this.transferItem({
+      this.buyItem({
         toinv: 'player',
         frominv: this.name,
         item,
@@ -42,7 +42,7 @@ export default {
     },
     sell (event) {
       const item = event.target.attributes.getNamedItem('item').value
-      this.transferItem({
+      this.buyItem({
         toinv: this.name,
         frominv: 'player',
         item,
