@@ -7,6 +7,9 @@
 
 <script>
 import MarketInventory from './MarketInventory'
+import {createNamespacedHelpers} from 'vuex'
+
+const { mapGetters } = createNamespacedHelpers('market')
 export default {
   name: 'Market',
   props: ['name'],
@@ -14,8 +17,14 @@ export default {
     MarketInventory
   },
   computed: {
+    ...mapGetters([
+      'getMarket'
+    ]),
+    market () {
+      return this.getMarket(this.name)
+    },
     inventory () {
-      return this.$store.state.markets[this.name].inventory
+      return this.market.inventory
     }
   }
 }

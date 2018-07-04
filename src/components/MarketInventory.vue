@@ -13,7 +13,7 @@
           <button
             @click="buy"
             :item="item.id"
-            :disabled="inventory.quantities[item.id] <= 0">
+            :disabled="getQuantity(item.id) <= 0">
             Buy
           </button>
           <button @click="sell" :item="item.id">Sell</button>
@@ -24,15 +24,24 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import Inventory from './Inventory'
+
+// Set up helpers
+const { mapActions } = createNamespacedHelpers('market')
+
 export default {
   name: 'MarketInventory',
   extends: Inventory,
   methods: {
-    ...mapActions(['buyItem']),
+    ...mapActions([
+      'buyItem'
+    ]),
+    getItemFromEvent (event) {
+      return event.target.attributes.getNamedItem('item').value
+    },
     buy (event) {
-      const item = event.target.attributes.getNamedItem('item').value
+      const item = this.getItemFromEvent(event)
       this.buyItem({
         toinv: 'player',
         frominv: this.name,
@@ -41,7 +50,7 @@ export default {
       })
     },
     sell (event) {
-      const item = event.target.attributes.getNamedItem('item').value
+      const item = this.getItemFromEvent(event)
       this.buyItem({
         toinv: this.name,
         frominv: 'player',

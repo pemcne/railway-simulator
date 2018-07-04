@@ -21,6 +21,9 @@ export default {
       }
     }
   },
+  getters: {
+    getInventory: state => id => state[id]
+  },
   mutations: {
     ADD_ITEM (state, {inv, item, quantity}) {
       const inventory = state[inv]
@@ -36,7 +39,6 @@ export default {
       inventory.quantities = quantities
     },
     REMOVE_ITEM (state, {inv, item, quantity}) {
-      console.log(inv, item, quantity)
       const inventory = state[inv]
       if (inventory.quantities[item] - quantity >= 0) {
         inventory.quantities[item] -= quantity

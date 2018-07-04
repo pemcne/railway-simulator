@@ -1,22 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import inventories from './modules/inventories'
+import inventory from './modules/inventory'
+import market from './modules/market'
 // import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex)
 
 const state = {
-  inventories: {
-
-  },
-  markets: {
-    'market1': {
-      inventory: 'abc'
-    },
-    'market2': {
-      inventory: 'def'
-    }
-  },
   player: {
     inventory: 'player'
   }
@@ -26,20 +16,7 @@ const state = {
 export default new Vuex.Store({
   state,
   modules: {
-    inventories
-  },
-  actions: {
-    buyItem ({commit}, {toinv, frominv, item, quantity}) {
-      commit('inventories/REMOVE_ITEM', {
-        inv: frominv,
-        item,
-        quantity
-      })
-      commit('inventories/ADD_ITEM', {
-        inv: toinv,
-        item,
-        quantity
-      })
-    }
+    inventory,
+    market
   }
 })

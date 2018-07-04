@@ -15,20 +15,31 @@
 </template>
 
 <script>
+import {createNamespacedHelpers} from 'vuex'
+const { mapGetters } = createNamespacedHelpers('inventory')
+
 export default {
   name: 'Inventory',
   props: ['name'],
   computed: {
+    ...mapGetters([
+      'getInventory'
+    ]),
     inventory () {
-      return this.$store.state.inventories[this.name]
+      return this.getInventory(this.name)
     },
     items () {
       return this.inventory.items.map(itemId => {
         return {
           id: itemId,
-          quantity: this.inventory.quantities[itemId]
+          quantity: this.getQuantity(itemId)
         }
       })
+    }
+  },
+  methods: {
+    getQuantity (item) {
+      return this.inventory.quantities[item]
     }
   }
 }

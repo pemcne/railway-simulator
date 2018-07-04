@@ -8,6 +8,11 @@
 <script>
 import Market from './components/Market'
 import Player from './components/Player'
+import {createNamespacedHelpers} from 'vuex'
+
+// Set up the helpers
+// TODO: move this to a MarketList
+const { mapState } = createNamespacedHelpers('market')
 
 // Parent root element for the entire application
 // Does nothing but display the children
@@ -18,9 +23,9 @@ export default {
     Player
   },
   computed: {
-    markets () {
-      return Object.keys(this.$store.state.markets)
-    }
+    ...mapState({
+      markets: state => Object.keys(state)
+    })
   }
 }
 </script>

@@ -7,14 +7,18 @@
 
 <script>
 import Inventory from './Inventory'
+import {mapState} from 'vuex'
 export default {
   name: 'Player',
   components: {
     Inventory
   },
   computed: {
+    ...mapState({
+      player: state => state.player
+    }),
     inventory () {
-      return this.$store.state.player.inventory
+      return this.player.inventory
     }
   }
 }
