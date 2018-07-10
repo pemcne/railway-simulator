@@ -26,6 +26,9 @@ export default {
     ...mapState({
       markets: state => Object.keys(state)
     })
+  },
+  mounted () {
+    console.log(this.$store.getters['trains/getTrainCars']('train1'))
   }
 }
 </script>
