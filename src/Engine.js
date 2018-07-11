@@ -9,22 +9,24 @@ export default {
     count: 0,
     hour: 0,
     day: 0,
-    month: 0
+    month: 0,
+    increment () {
+      this.count++
+      if (this.count * TIMESCALE >= 1) {
+        this.hour++
+        this.count = 0
+        EventBus.$emit('tick-hour')
+      }
+      if (this.hour >= 24) {
+        this.hour = 0
+        this.day++
+        EventBus.$emit('tick-day')
+      }
+    }
   },
   tick () {
-    EventBus.$emit('tick', TIMESCALE)
-    this.clock.count += TIMESCALE
-    if (this.clock.count >= 1) {
-      EventBus.$emit('tick-hour')
-      this.clock.hour++
-      this.clock.count = 0
-    }
-    if (this.clock.hour >= 24) {
-      EventBus.$emit('tick-day')
-      this.clock.hour = 0
-      this.clock.day++
-    }
-    console.table(this.clock)
+    EventBus.$emit('tick')
+    this.clock.increment()
   },
   start () {
     this.interval = setInterval(() => this.tick(), TICKRATE)
