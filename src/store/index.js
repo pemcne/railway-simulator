@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import inventory from './modules/inventory'
 import market from './modules/market'
-import trains from './modules/train'
+import trains from './modules/trains'
 // import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex)

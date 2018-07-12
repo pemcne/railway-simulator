@@ -25,7 +25,7 @@ export default {
     }
   },
   tick () {
-    EventBus.$emit('tick')
+    EventBus.$emit('tick', TIMESCALE)
     this.clock.increment()
   },
   start () {
