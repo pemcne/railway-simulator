@@ -23,13 +23,19 @@ export default {
     }
   },
   getters: {
-    getTrain: (state, getters, _, rootGetters) => trainId => state[trainId],
-    getTrainCars: (state, getters, rootState, rootGetters) => trainId => {
-      state[trainId].cars.map(i => {
-        const invId = state[i].inventory
-        const inv = rootGetters['inventory/getInventory'](invId)
-        return inv
+    getTrain: (state, getters, _, rootGetters) => trainId => {
+      //Get a copy of the train object from the state
+      let train = Object.assign({}, state[trainId])
+      // For all of the cars, get the inventory object
+      train.cars = train.cars.map(i => {
+        const carInventory = state[i].inventory
+        const inventory = rootGetters['inventory/getInventory'](carInventory)
+        return {
+          name: i,
+          inventory
+        }
       })
+      return train
     }
   },
   actions: {
