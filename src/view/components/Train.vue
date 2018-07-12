@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p>I am a train</p>
+    <p>Heading to: {{ train.position.destination }}</p>
+    <p>{{ train.position.distanceTo }} left with current speed of {{ train.currentSpeed }}</p>
   </div>
 </template>
 
@@ -57,19 +58,23 @@ export default {
       }
       // Get the new speed through de/acceleration
       console.log('rate', rate)
-      const speed = this.accelerate(rate, this.train.currentSpeed, scale)
+      let speed = this.accelerate(rate, this.train.currentSpeed, scale)
+      // Round it to the nearest two decimals
+      speed = +(speed).toFixed(2)
       // distance = speed * time
       const travelDistance = speed * scale
       // Copy the position object so we can modify it and pass it back
       let position = Object.assign({}, this.train.position)
       let station = this.train.atStation
       // Calculate the new distance to the station
-      position.distanceTo -= travelDistance
+      position.distanceTo = (position.distanceTo - travelDistance).toFixed(2)
       if (position.distanceTo <= 0) {
+        // Made it to the station so we can set everything to zero
+        position.distanceTo = 0
+        speed = 0
         console.log('Arrived!')
         station = true
       }
-      console.log(speed, position.distanceTo)
       // Finally update all the stats
       this.update({
         trainId: this.trainId,
