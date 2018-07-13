@@ -16,7 +16,12 @@ export default {
         destination: 'city1',
         source: 'city2'
       },
-      atStation: false
+      atStation: false,
+      route: [
+        'city1',
+        'city2'
+      ],
+      routeIndex: 0
     },
     'train1-car1': {
       inventory: 'asdf'
@@ -24,7 +29,7 @@ export default {
   },
   getters: {
     getTrain: (state, getters, _, rootGetters) => trainId => {
-      //Get a copy of the train object from the state
+      // Get a copy of the train object from the state
       let train = Object.assign({}, state[trainId])
       // For all of the cars, get the inventory object
       train.cars = train.cars.map(i => {
@@ -55,6 +60,12 @@ export default {
       commit('UPDATE_SPEED', {
         trainId,
         currentSpeed
+      })
+    },
+    depart ({commit}, {trainId}) {
+      commit('UPDATE_STATION', {
+        trainId,
+        atStation: false
       })
     }
   },

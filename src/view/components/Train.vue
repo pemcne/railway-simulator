@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p>Heading to: {{ train.position.destination }}</p>
+    <p v-if="train.atStation">Arrived at {{ train.position.source }}</p>
+    <p v-else>Heading to: {{ train.position.destination }}</p>
     <p>{{ train.position.distanceTo }} left with current speed of {{ train.currentSpeed }}</p>
+    <button @click="departStation" :disabled="train.atStation ? false : true">Depart</button>
   </div>
 </template>
 
@@ -24,8 +26,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'update'
+      'update',
+      'depart'
     ]),
+    departStation (event) {
+      this.depart({
+        trainId: this.trainId
+      })
+    },
     accelerate (rate, initial, time) {
       let speed
       speed = (rate * time) + initial
@@ -50,14 +58,11 @@ export default {
       // First see if we need to accelerate
       let rate
       if (this.doAccelerate(this.train.deceleration, this.train.position.distanceTo, this.train.currentSpeed)) {
-        console.log('accelerating')
         rate = this.train.acceleration
       } else {
-        console.log('decelerating')
         rate = this.train.deceleration
       }
       // Get the new speed through de/acceleration
-      console.log('rate', rate)
       let speed = this.accelerate(rate, this.train.currentSpeed, scale)
       // Round it to the nearest two decimals
       speed = +(speed).toFixed(2)
@@ -70,10 +75,14 @@ export default {
       position.distanceTo = (position.distanceTo - travelDistance).toFixed(2)
       if (position.distanceTo <= 0) {
         // Made it to the station so we can set everything to zero
-        position.distanceTo = 0
         speed = 0
         console.log('Arrived!')
         station = true
+        position = {
+          distanceTo: 300,
+          destination: 'city2',
+          source: 'city1'
+        }
       }
       // Finally update all the stats
       this.update({
