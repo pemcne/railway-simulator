@@ -2,12 +2,15 @@
   <div id="app">
     <Market v-for="market in markets" :key="market" v-bind:name="market"/>
     <Player />
+    Train here:
+    <Train trainId="train1"/>
   </div>
 </template>
 
 <script>
 import Market from './components/Market'
 import Player from './components/Player'
+import Train from './components/Train'
 import {createNamespacedHelpers} from 'vuex'
 
 // Set up the helpers
@@ -20,7 +23,8 @@ export default {
   name: 'App',
   components: {
     Market,
-    Player
+    Player,
+    Train
   },
   computed: {
     ...mapState({

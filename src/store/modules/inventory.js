@@ -19,6 +19,12 @@ export default {
       quantities: {
         'wood': 1
       }
+    },
+    'asdf': {
+      items: ['wood'],
+      quantities: {
+        'wood': 1
+      }
     }
   },
   getters: {

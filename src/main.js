@@ -17,8 +17,8 @@ new Vue({
     counter: 0
   },
   mounted () {
-    // Engine.store = this.$store
-    // Engine.start()
+    Engine.store = this.$store
+    Engine.start()
   },
   beforeDestroy () {
     Engine.stop()

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import inventory from './modules/inventory'
 import market from './modules/market'
+import trains from './modules/trains'
 // import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex)
@@ -17,6 +18,7 @@ export default new Vuex.Store({
   state,
   modules: {
     inventory,
-    market
+    market,
+    trains
   }
 })

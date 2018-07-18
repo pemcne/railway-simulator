@@ -1,40 +1,37 @@
 // Set up the event bus
 import EventBus from '@/modules/EventBus.js'
+import {TIMESCALE, TICKRATE} from '@/modules/Constants'
 
 export default {
   store: null,
   eventBus: EventBus,
-  buyItem (item, amount, cost) {
-    this.store.dispatch('buy', {
-      item,
-      amount,
-      cost
-    })
+  clock: {
+    count: 0,
+    hour: 0,
+    day: 0,
+    month: 0,
+    increment () {
+      this.count++
+      if (this.count * TIMESCALE >= 1) {
+        this.hour++
+        this.count = 0
+        EventBus.$emit('tick-hour')
+      }
+      if (this.hour >= 24) {
+        this.hour = 0
+        this.day++
+        EventBus.$emit('tick-day')
+      }
+    }
   },
   tick () {
-    const timestamp = Math.floor(new Date() / 1000)
-    EventBus.emit('tick', {current: timestamp, previous: this.store.getters.timestamp})
-    this.store.dispatch('setTime', {timestamp})
+    EventBus.$emit('tick', TIMESCALE)
+    this.clock.increment()
   },
   start () {
-    this.interval = setInterval(() => this.tick(), 1000)
-
-    // Set up the other listeners
-    EventBus.on('tick', () => this.income())
+    this.interval = setInterval(() => this.tick(), TICKRATE)
   },
   stop () {
     clearInterval(this.interval)
-    EventBus.reset()
-  },
-  income () {
-    let income = 0
-    for (const key in this.store.getters.inventory) {
-      const resource = this.store.getters.resource(key)
-      const amount = this.store.getters.inventory[key]
-      income += amount * resource.income
-    }
-    this.store.dispatch('income', {
-      amount: income
-    })
   }
 }
