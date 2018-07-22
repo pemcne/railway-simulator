@@ -1,21 +1,41 @@
 export default {
   namespaced: true,
   state: {
-    rails: ['rail1'],
-    rail1: {
-      distance: 350,
-      source: 'city1',
-      destination: 'city2'
+    junction1: {
+      connections: [
+        'connection1'
+      ],
+      trains: [],
+      canStop: true,
+      atCity: true
     },
-    rail2: {
-      distance: 350,
-      source: 'city2',
-      destination: 'city1'
+    junction2: {
+      connections: [
+        'connection1'
+      ],
+      trains: [],
+      canStop: true,
+      atCity: true
+    }
+    connection1: {
+      distance: 450,
+      junctions: [
+        'junction1',
+        'junction2'
+      ],
+      rails: 1
     }
   },
   getters: {
-    getRail: (state) => railId => {
-      return state[cityId]
+    getById: (state) => id => state[id],
+    getNextConnection: (state) => (sourceJunction, destinationJunction) => {
+      // Since all routes are hard coded junctions, this is a dirty way of
+      // grabbing the next connection
+      const srcConns = new Set(state[sourceJunction].connections)
+      const destConns = new Set(state[destinationJunction].connections)
+      // Find the intersection between the two sets
+      const inter = new Set([...srcConns].filter(i => destConns.has(i)))
+      return Array.from(inter)[0]
     }
   }
 }

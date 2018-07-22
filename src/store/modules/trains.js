@@ -16,12 +16,13 @@ export default {
         destination: 'city1',
         source: 'city2'
       },
-      atStation: false,
+      atStation: true,
       route: [
-        'city1',
-        'city2'
+        'junction1',
+        'junction2'
       ],
-      routeIndex: 0
+      routeIndex: 0,
+      routeNextIndex: 1
     },
     'train1-car1': {
       inventory: 'asdf'

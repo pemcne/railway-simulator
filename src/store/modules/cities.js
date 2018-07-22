@@ -5,18 +5,16 @@ export default {
     city1: {
       markets: ['market1'],
       warehouse: null,
-      rails: ['rail1']
+      junctions: ['junction1']
     },
     city2: {
       markets: ['market2'],
       warehouse: null,
-      rails: ['rail2']
+      junctions: ['junction2']
     }
   },
   getters: {
-    getCity: (state) => cityId => {
-      return state[cityId]
-    }
+    getById: (state) => id => state[id]
   },
   actions: {
 
