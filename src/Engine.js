@@ -1,5 +1,6 @@
 // Set up the event bus
 import EventBus from '@/modules/EventBus.js'
+import TrafficController from '@/modules/TrafficController'
 import {TIMESCALE, TICKRATE} from '@/modules/Constants'
 
 export default {
@@ -23,6 +24,10 @@ export default {
         EventBus.$emit('tick-day')
       }
     }
+  },
+  init () {
+    TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
+    TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
   },
   tick () {
     EventBus.$emit('tick', TIMESCALE)

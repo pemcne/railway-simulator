@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import inventory from './modules/inventory'
 import market from './modules/market'
 import trains from './modules/trains'
+import rails from './modules/rails'
 // import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex)
@@ -19,6 +20,7 @@ export default new Vuex.Store({
   modules: {
     inventory,
     market,
-    trains
+    trains,
+    rails
   }
 })
