@@ -2,6 +2,7 @@
 import EventBus from '@/modules/EventBus.js'
 import TrafficController from '@/modules/TrafficController'
 import {TIMESCALE, TICKRATE} from '@/modules/Constants'
+import {wait, ready} from '@/modules/utils/scheduler'
 
 export default {
   store: null,
@@ -26,8 +27,10 @@ export default {
     }
   },
   init () {
-    TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
-    TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
+    wait('foobar', this.test, this, 'foo a', 'foo b')
+    EventBus.$on('tick-hour', () => ready('foobar'))
+    // TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
+    // TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
   },
   tick () {
     EventBus.$emit('tick', TIMESCALE)
@@ -38,5 +41,9 @@ export default {
   },
   stop () {
     clearInterval(this.interval)
+  },
+  test (foo, bar) {
+    console.log('foo', foo)
+    console.log('bar', bar)
   }
 }

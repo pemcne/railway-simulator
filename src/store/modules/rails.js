@@ -1,4 +1,3 @@
-import Junction from '@/store/models/junction'
 
 export default {
   namespaced: true,
