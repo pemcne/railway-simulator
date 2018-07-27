@@ -1,7 +1,6 @@
 let queue = {}
 
 const wait = (id, callback, context, ...args) => {
-  console.log('storing', id)
   queue[id] = {
     callback,
     context,
@@ -14,12 +13,17 @@ const ready = (id) => {
     throw new Error(`${id} not in queue`)
   } else {
     const func = queue[id]
-    delete queue[id]
+    release(id)
     func.callback.call(func.context, ...func.args)
   }
 }
 
+const release = (id) => {
+  delete queue[id]
+}
+
 export {
   wait,
-  ready
+  ready,
+  release
 }
