@@ -27,10 +27,8 @@ export default {
     }
   },
   init () {
-    wait('foobar', this.test, this, 'foo a', 'foo b')
-    EventBus.$on('tick-hour', () => ready('foobar'))
-    // TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
-    // TrafficController.requestConnection('train1', 'junction1', 'connection1', null).then(console.log('reservation success'))
+    // TrafficController.requestConnection(null, 'train1', 'junction1', 'connection1')
+    // TrafficController.requestConnection(null, 'train1', 'junction1', 'connection1')
   },
   tick () {
     EventBus.$emit('tick', TIMESCALE)
@@ -41,9 +39,5 @@ export default {
   },
   stop () {
     clearInterval(this.interval)
-  },
-  test (foo, bar) {
-    console.log('foo', foo)
-    console.log('bar', bar)
   }
 }

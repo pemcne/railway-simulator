@@ -13,8 +13,9 @@ export default {
       fuel: 100,
       position: {
         distanceTo: 200,
-        destination: 'city1',
-        source: 'city2'
+        destination: 'junction2',
+        source: 'junction1',
+        connection: 'connection1'
       },
       atStation: true,
       route: [

@@ -9,6 +9,8 @@
 
 <script>
 import EventBus from '@/modules/EventBus'
+import {wait} from '@/modules/utils/scheduler'
+import TrafficController from '@/modules/TrafficController'
 import {createNamespacedHelpers} from 'vuex'
 
 const { mapGetters, mapActions } = createNamespacedHelpers('trains')
@@ -33,6 +35,21 @@ export default {
       this.depart({
         trainId: this.trainId
       })
+    },
+    generateScheduleId (junction, connection) {
+      const rand = Math.random().toString(36).substr(2, 9)
+      return `${this.trainId}-${junction}-${connection}-${rand}`
+    },
+    acceptConnection (junction, connection) {
+      // Modify route?
+    },
+    requestNextConnection (currentJunction, nextJunction) {
+      connection = this.$store.getters['rails/getNextConnection']()
+      const scheduleId = this.generateScheduleId(junction, connection)
+      // Listen on the event for the callback
+      wait(scheduleId, this.acceptConnection, this, junction, connection)
+      // Submit request to the controller for the connection
+      TrafficController(scheduleId, this.trainId,)
     },
     accelerate (rate, initial, time) {
       let speed
@@ -96,7 +113,6 @@ export default {
   },
   mounted () {
     EventBus.$on('tick', (scale) => this.move(scale))
-    console.log(this.train)
   }
 }
 </script>

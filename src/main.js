@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './view/App'
 import store from '@/store'
 import Engine from '@/Engine.js'
+import guid from '@/modules/utils/guid'
 
 Vue.config.productionTip = false
 

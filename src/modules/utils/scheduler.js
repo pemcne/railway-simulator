@@ -9,12 +9,12 @@ const wait = (id, callback, context, ...args) => {
 }
 
 const ready = (id) => {
-  if (!(id in queue)) {
-    throw new Error(`${id} not in queue`)
-  } else {
+  if (id in queue) {
     const func = queue[id]
     release(id)
     func.callback.call(func.context, ...func.args)
+  } else {
+    throw new Error(`${id} not in queue`)
   }
 }
 
